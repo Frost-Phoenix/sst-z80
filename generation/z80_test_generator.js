@@ -1296,7 +1296,9 @@ class Z80_test_generator {
     }
 
     CCF() {
-        if (this.regs.Q !== 0) { this.regs.F.X = this.regs.F.Y = 0; }
+        if (this.regs.Q !== 0&& this.prefix !== 0xDD && this.prefix !== 0xFD) {
+		this.regs.F.X = this.regs.F.Y = 0;
+	}
         this.regs.F.H = this.regs.F.C;
         this.regs.F.C ^= 1;
         this.regs.F.N = 0;
@@ -2140,7 +2142,9 @@ class Z80_test_generator {
     }
 
     SCF() {
-        if (this.regs.Q !== 0) { this.regs.F.X = this.regs.F.Y = 0; }
+        if (this.regs.Q !== 0 && this.prefix !== 0xDD && this.prefix !== 0xFD) {
+		this.regs.F.X = this.regs.F.Y = 0;
+	}
         this.regs.F.C = 1;
         this.regs.F.N = this.regs.F.H = 0;
         this.regs.F.X = ((this.regs.F.getbyte() | this.regs.A) & 0x08) >>> 3;
